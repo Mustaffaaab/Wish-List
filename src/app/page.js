@@ -13,11 +13,29 @@ export default function Home() {
               <span className={styles.accent}>Övervakade på ett ställe.</span>
             </h1>
             <p className={`animate-fade-in delay-100 ${styles.subtitle}`}>
-              Spara och prisbevaka direkt i appen. Klistra in länken och låt "Universal Tracker" hämta prislapp och bild. <br/>(Perfekt för svensk e-handel och tech-prylar)
+              Spara och prisbevaka direkt i appen. Klistra in länken och låt &quot;Universal Tracker&quot; hämta prislapp och bild. <br/>(Perfekt för svensk e-handel och tech-prylar)
             </p>
             <div className={`animate-fade-in delay-200 ${styles.ctaGroup}`}>
-              <Link href="/register" className="btn-primary">Kom igång gratis</Link>
-              <Link href="/about" className="btn-secondary">Läs om visionen</Link>
+              <Link href="/register" className="btn-primary" style={{ padding: '16px 32px', fontSize: '1.2rem'}}>Kom igång gratis</Link>
+              <Link href="/about" className="btn-secondary" style={{ padding: '16px 32px', fontSize: '1.2rem'}}>Läs om visionen</Link>
+            </div>
+
+            {/* Svävande 3D Mockup */}
+            <div className={`animate-fade-in delay-200 ${styles.mockupContainer}`}>
+              <div className={styles.mockupCard}>
+                <div className={styles.mockImg}>👟</div>
+                <div className={styles.mockInfo}>
+                  <h3 className={styles.mockTitle}>Nike P-6000 Premium</h3>
+                  <div className={styles.mockTags}>
+                    <span className={styles.mockTag}>🔥 Strl 43 i lager!</span>
+                    <span className={styles.mockTag} style={{background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)'}}>📉 Priset Sänkt!</span>
+                  </div>
+                  <div className={styles.mockPriceRow}>
+                    <span className={styles.mockPrice}>899 kr</span>
+                    <span className={styles.mockOldPrice}>1299 kr</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -6,11 +6,17 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showNotif, setShowNotif] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleNotif = (e) => {
+    e.stopPropagation();
+    setShowNotif(!showNotif);
   };
 
   const handleLogout = async () => {
@@ -34,7 +40,21 @@ export default function Navbar() {
           <Link href="/dashboard" className={styles.link}>Dashboard</Link>
           <div className={styles.authLinks}>
             {isDashboard ? (
-              <button onClick={handleLogout} className="btn-secondary">Logga ut</button>
+              <>
+                <div className={styles.bellContainer} onClick={toggleNotif}>
+                  <div className={styles.bellIcon}>🔔</div>
+                  <div className={styles.bellBadge}></div>
+                  {showNotif && (
+                    <div className={styles.notifDropdown}>
+                      <h4>Nya Notiser (1)</h4>
+                      <div className={styles.notifItem}>
+                        <p>Ett bevakat pris har sjunkit kraftigt! Gå till din dashboard för att se <span>📉 Prissänkta</span> produkter.</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <button onClick={handleLogout} className="btn-secondary">Logga ut</button>
+              </>
             ) : (
               <>
                 <Link href="/login" className="btn-secondary">Logga in</Link>

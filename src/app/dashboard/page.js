@@ -10,6 +10,7 @@ function DashboardContent() {
   const [loading, setLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [filter, setFilter] = useState('ALL');
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -20,6 +21,7 @@ function DashboardContent() {
     if (addUrl) {
       setUrlInput(addUrl);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const fetchProducts = async () => {
@@ -98,10 +100,21 @@ function DashboardContent() {
     }
   };
 
+  const filteredProducts = products.filter(product => {
+    if (filter === 'ALL') return true;
+    if (filter === 'INSTOCK') return product.isSizeInStock;
+    if (filter === 'DROPPED') {
+      const initialPrice = product.priceHistory?.[0]?.price || product.currentPrice;
+      return product.currentPrice < initialPrice;
+    }
+    return true;
+  });
+
   return (
     <div className={styles.dashboardContainer}>
       <main className={styles.main}>
-        <div className={styles.actionBar}>
+        <div className={styles.glowBlob}></div>
+        <div className={`animate-fade-in ${styles.actionBar}`}>
           <div className={styles.actionHeader}>
             <h1>Din Bevakning</h1>
             <button onClick={handleSync} disabled={isSyncing} className={`btn-secondary ${styles.syncBtn}`}>
@@ -137,9 +150,26 @@ function DashboardContent() {
           </form>
         </div>
 
+        <div className={styles.filterBar}>
+          <button className={`${styles.filterBtn} ${filter === 'ALL' ? styles.filterBtnActive : ''}`} onClick={() => setFilter('ALL')}>👁️ Alla</button>
+          <button className={`${styles.filterBtn} ${filter === 'INSTOCK' ? styles.filterBtnActive : ''}`} onClick={() => setFilter('INSTOCK')}>🔥 I Lager</button>
+          <button className={`${styles.filterBtn} ${filter === 'DROPPED' ? styles.filterBtnActive : ''}`} onClick={() => setFilter('DROPPED')}>📉 Prissänkta</button>
+        </div>
+
         <div className={styles.grid}>
           {loading ? (
-             <p style={{color: 'var(--text-muted)'}}>Laddar dina produkter...</p>
+            <>
+              {[1, 2, 3].map(i => (
+                <div key={i} className={styles.skeletonCard}>
+                  <div className={styles.skeletonImage}></div>
+                  <div className={styles.skeletonInfo}>
+                    <div className={styles.skeletonTextLg}></div>
+                    <div className={styles.skeletonTextMd}></div>
+                    <div className={styles.skeletonTextSm}></div>
+                  </div>
+                </div>
+              ))}
+            </>
           ) : products.length === 0 ? (
             <div className={`glass-panel ${styles.emptyState}`}>
               <div className={styles.emptyIcon}>📦</div>
@@ -149,8 +179,12 @@ function DashboardContent() {
                 💡 Systemet fungerar fantastiskt på butiker som Webhallen, Inet, Apotea, Lyko m.fl.
               </p>
             </div>
+          ) : filteredProducts.length === 0 ? (
+            <div style={{color: 'var(--text-muted)', paddingTop: '20px'}}>
+              Inga produkter matchar detta filter. 
+            </div>
           ) : (
-            products.map((product) => {
+            filteredProducts.map((product) => {
               const initialPrice = product.priceHistory?.[0]?.price || product.currentPrice;
               const hasDropped = product.currentPrice < initialPrice;
               const dropAmount = initialPrice - product.currentPrice;

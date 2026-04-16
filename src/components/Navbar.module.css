@@ -92,6 +92,86 @@
   border-bottom: none;
 }
 
+/* NOTIFICATIONS */
+.bellContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+  margin-right: 16px;
+}
+
+.bellContainer:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.bellIcon {
+  font-size: 1.2rem;
+}
+
+.bellBadge {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  background: #ff3b30;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 59, 48, 0.8);
+}
+
+.notifDropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  width: 320px;
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+  cursor: default;
+}
+
+.notifDropdown h4 {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+.notifItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.notifItem p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.notifItem span {
+  color: #34c759;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .desktopMenu {
     display: none;

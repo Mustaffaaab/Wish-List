@@ -1,0 +1,118 @@
+.container {
+  min-height: 100vh;
+  padding-top: 140px;
+  padding-bottom: 80px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.glowBlob {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(0, 122, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 40%, transparent 70%);
+  transform: translate(-50%, -20%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  animation: slowDrift 15s ease-in-out infinite alternate;
+}
+
+@keyframes slowDrift {
+  0% { transform: translate(-50%, -20%) scale(1); }
+  100% { transform: translate(-45%, -10%) scale(1.1); }
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 40px;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff 0%, #aaaaaa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glassCard {
+  background: rgba(20, 20, 20, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: var(--radius-lg);
+  padding: 60px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.paragraph {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.paragraph strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.signature {
+  margin-top: 50px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #333, #111);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.authorInfo h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+}
+
+.authorInfo p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .glassCard {
+    padding: 30px;
+  }
+  .paragraph {
+    font-size: 1.1rem;
+  }
+}
